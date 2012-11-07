@@ -12,8 +12,8 @@ class GildedRose
 end
 
 describe GildedRose do
-
   let(:subject) { GildedRose.new }
+
   #- All items have a SellIn value which denotes the number of days we have to
   #  sell the item
   #
@@ -27,18 +27,18 @@ describe GildedRose do
 
   describe "#update_quality" do
     it "lowers sell_in value for every item at the end of each day" do
-      sell_in_before = subject.items.map { |item| item.sell_in }
-      expected_sell_in = sell_in_before.map {|sell_in_value| sell_in_value > 0 ? sell_in_value - 1 : 0}
+      sell_in_before = subject.items.map(&:sell_in)
+      expected_sell_in = sell_in_before.map { |sell_in_value| [0, sell_in_value - 1].max }
 
       subject.update_quality
 
-      subject.items.map { |item| item.sell_in }.must_equal expected_sell_in
+      subject.items.map(&:sell_in).must_equal expected_sell_in
     end
 
     it "lowers quality value for every item at the end of each day" do
       subject.update_quality
 
-      subject.items.map { |item| item.quality }.must_equal [19, 1, 6, 80, 21, 5]
+      subject.items.map(&:quality).must_equal [19, 1, 6, 80, 21, 5]
     end
   end
 
