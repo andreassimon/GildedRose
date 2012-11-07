@@ -1,15 +1,19 @@
+# encoding: utf-8
+
 require './gilded_rose.rb'
-require "rspec"
+
+require 'minitest/autorun'
+require 'minitest/reporters'
+MiniTest::Reporters.use!
+
 
 class GildedRose
-  #puts self
-  #puts self.class
   attr_reader :items
 end
 
 describe GildedRose do
 
-
+  let(:subject) { GildedRose.new }
   #- All items have a SellIn value which denotes the number of days we have to
   #  sell the item
   #
@@ -18,7 +22,7 @@ describe GildedRose do
   #- At the end of each day our system lowers both values for every item
 
   it "has fixed initial quality data" do
-    subject.items.map { |item| item.quality}.should == [20, 0, 7, 80, 20, 6]
+    subject.items.map { |item| item.quality}.must_equal [20, 0, 7, 80, 20, 6]
   end
 
   describe "#update_quality" do
@@ -28,13 +32,13 @@ describe GildedRose do
 
       subject.update_quality
 
-      subject.items.map { |item| item.sell_in}.should == expected_sell_in
+      subject.items.map { |item| item.sell_in }.must_equal expected_sell_in
     end
 
     it "lowers quality value for every item at the end of each day" do
       subject.update_quality
 
-      subject.items.map { |item| item.quality}.should == [19, 1, 6, 80, 21, 5]
+      subject.items.map { |item| item.quality }.must_equal [19, 1, 6, 80, 21, 5]
     end
   end
 
