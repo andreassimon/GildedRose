@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Item
 
   attr_accessor :name, :sell_in, :quality
