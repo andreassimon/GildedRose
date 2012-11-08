@@ -45,10 +45,10 @@ describe 'Golden master' do
   end
 
   expected_qualities = [
-    [19, 1, 6, 80, 21, 5],
-    [18, 2, 5, 80, 22, 4],
-    [17, 4, 4, 80, 23, 3],
-    [16, 6, 3, 80, 24, 1],
+    [19, 1, 6, 80, 21, 4],
+    [18, 2, 5, 80, 22, 2],
+    [17, 4, 4, 80, 23, 0],
+    [16, 6, 3, 80, 24, 0],
     [15, 8, 2, 80, 25, 0],
     [14, 10, 0, 80, 27, 0],
     [13, 12, 0, 80, 29, 0],
@@ -110,7 +110,7 @@ describe GildedRose do
     it "lowers quality value for every item at the end of each day" do
       subject.update_quality
 
-      subject.items.map(&:quality).must_equal [19, 1, 6, 80, 21, 5]
+      subject.items.map(&:quality).must_equal [19, 1, 6, 80, 21, 4]
     end
   end
 
